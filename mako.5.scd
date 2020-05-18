@@ -118,6 +118,12 @@ _none_, _dismiss_, _dismiss-all_, _dismiss-group_, _invoke-default-action_,
 
 	Default: 5
 
+*icon-padding* = _directional_
+	Set icon padding on each side to the size specified by _directional_. See
+	*DIRECTIONAL VALUES* for more information.
+
+	Default: 5
+
 *border-size* = _px_
 	Set popup border size to _px_ pixels.
 

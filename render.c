@@ -97,6 +97,8 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 	int border_size = 2 * style->border_size;
 	int padding_height = style->padding.top + style->padding.bottom;
 	int padding_width = style->padding.left + style->padding.right;
+	int icon_padding_height = style->icon_padding.top + style->icon_padding.bottom;
+	int icon_padding_width = style->icon_padding.left + style->icon_padding.right;
 	int radius = style->border_radius;
 	bool icon_vertical = style->icon_location == MAKO_ICON_LOCATION_TOP ||
 		style->icon_location == MAKO_ICON_LOCATION_BOTTOM;
@@ -118,26 +120,24 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 	// text_x is the offset of the text inside our draw operation
 	double text_x = style->padding.left;
 	if (icon != NULL && style->icon_location == MAKO_ICON_LOCATION_LEFT) {
-		text_x = icon->width + 2*style->padding.left;
+		text_x = icon->width + icon_padding_width + style->padding.left;
 	}
 
 	// text_y is the offset of the text inside our draw operation
 	double text_y = style->padding.top;
 	if (icon != NULL && style->icon_location == MAKO_ICON_LOCATION_TOP) {
-		text_y = icon->height + 2*style->padding.top;
+		text_y = icon->height + icon_padding_height + style->padding.top;
 	}
 
 	double text_layout_width = notif_width - border_size - padding_width;
 	if (icon && ! icon_vertical) {
 		text_layout_width -= icon->width;
-		text_layout_width -= style->icon_location == MAKO_ICON_LOCATION_LEFT ?
-			(style->padding.left * 2) : (style->padding.right * 2);
+		text_layout_width -= icon_padding_width;
 	}
 	double text_layout_height = style->height - border_size - padding_height;
 	if (icon && icon_vertical) {
 		text_layout_height -= icon->height;
-		text_layout_height -= style->icon_location == MAKO_ICON_LOCATION_TOP ?
-			(style->padding.top * 2) : (style->padding.bottom * 2);
+		text_layout_height -= icon_padding_height;
 	}
 
 	set_font_options(cairo, state);
@@ -189,11 +189,10 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 	int notif_height = text_height + border_size + padding_height;
 	if (icon && icon_vertical) {
 		notif_height += icon->height;
-		notif_height += style->icon_location == MAKO_ICON_LOCATION_TOP ?
-			style->padding.top : style->padding.bottom;
+		notif_height += style->icon_padding.top + style->icon_padding.bottom;
 	}
-	if (icon != NULL && ! icon_vertical && icon->height > text_height) {
-		notif_height = icon->height + border_size + padding_height;
+	if (icon != NULL && ! icon_vertical && (icon->height + icon_padding_height) > (text_height + padding_height)) {
+		notif_height = icon->height + border_size + icon_padding_height;
 	}
 
 	if (notif_height < radius * 2) {
@@ -270,8 +269,7 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 
 		switch (style->icon_location) {
 		case MAKO_ICON_LOCATION_LEFT:
-			xpos = offset_x + style->border_size +
-				(text_x - icon->width) / 2;
+			xpos = offset_x + style->border_size + style->icon_padding.left;
 			ypos = ypos_center;
 			break;
 		case MAKO_ICON_LOCATION_RIGHT:

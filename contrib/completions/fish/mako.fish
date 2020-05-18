@@ -15,6 +15,7 @@ complete -c mako -l width -d 'Notification width in px' -x
 complete -c mako -l height -d 'Max notification height in px' -x
 complete -c mako -l margin -d 'Margin values in px, comma separated' -x
 complete -c mako -l padding -d 'Padding values in px, comma separated' -x
+complete -c mako -l icon_padding -d 'Padding values for icon in px, comma separated' -x
 complete -c mako -l border-size -d 'Border size in px' -x
 complete -c mako -l border-color -d 'Border color in #RRGGBB[AA]' -x
 complete -c mako -l border-radius -d 'Border radius in px' -x

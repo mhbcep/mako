@@ -31,7 +31,7 @@ enum mako_icon_location {
 // fields in the mako_style structure should have a counterpart here. Inline
 // structs are also mirrored.
 struct mako_style_spec {
-	bool width, height, margin, padding, border_size, border_radius, font,
+	bool width, height, margin, padding, icon_padding, border_size, border_radius, font,
 		markup, format, actions, default_timeout, ignore_timeout, icons,
 		max_icon_size, icon_path, group_criteria_spec, invisible, history,
 		icon_location;
@@ -49,6 +49,7 @@ struct mako_style {
 	int32_t height;
 	struct mako_directional margin;
 	struct mako_directional padding;
+	struct mako_directional icon_padding;
 	int32_t border_size;
 	int32_t border_radius;
 

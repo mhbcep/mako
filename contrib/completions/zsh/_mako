@@ -14,6 +14,7 @@ _arguments \
     '--height[Max notification height.]:height:' \
     '--margin[Margin values, comma separated. Up to four values, with the same meaning as in CSS.]:margin:' \
     '--padding[Padding values, comma separated. Up to four values, with the same meaning as in CSS.]:padding:' \
+    '--icon_padding[Padding values for icon, comma separated. Up to four values, with the same meaning as in CSS.]:padding:' \
     '--border-size[Border size.]:size:' \
     '--border-color[Border color.]:color:' \
     '--markup[Enable/disable markup.]:markup enabled:(0 1)' \
